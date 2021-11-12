@@ -7,4 +7,10 @@
 # pip install django-allauth
 4. Установить библиотеку django-apscheduler
 # pip install django-apscheduler
-
+5. Установить библиотеку celery
+# pip install celery
+6. Установить библиотеку redis
+# pip install redis
+7. Установить поддержку Redis в Celery
+# pip install -U "celery[redis]"
+# celery -A NewsPortal  worker -l INFO # - команда запуска Celery
