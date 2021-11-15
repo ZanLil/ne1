@@ -17,6 +17,7 @@ from django.core.mail import EmailMultiAlternatives
 # Ниже импорт для сигналов
 from django.db.models.signals import post_save, m2m_changed
 from django.dispatch import receiver, Signal
+from .tasks import add_post_send_email
 
 
 
@@ -73,8 +74,9 @@ class CreatePost(PermissionRequiredMixin, CreateView):
         post = form.save()
         id = post.id
         a = form.cleaned_data['postCategory']
-        category_object_name = a[0]
-        addpost.send(Post, instance=post, category=category_object_name)
+        category_object_name = str(a[0])
+        add_post_send_email.delay(category=category_object_name, id=id)
+        # addpost.send(Post, instance=post, category=category_object_name)
         return redirect(f'/news/{id}')
 
 
