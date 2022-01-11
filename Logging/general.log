@@ -159,3 +159,5 @@ Exception
 2022-01-12 00:03:43,530 WARNING log Forbidden (CSRF token missing.): /news/242/delete
 2022-01-12 00:05:17,428 WARNING log Forbidden (CSRF token missing.): /news/242/delete
 2022-01-12 00:05:20,969 WARNING log Forbidden (CSRF token missing.): /news/242/delete
+2022-01-12 00:26:00,959 INFO autoreload Watching for file changes with StatReloader
+2022-01-12 00:26:30,689 INFO autoreload /Users/sky/PycharmProjects/DjangoProject/SkillFactory_D7/NewsPortal/settings.py changed, reloading.
