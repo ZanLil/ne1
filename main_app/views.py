@@ -1,5 +1,6 @@
-from django.http import HttpResponseRedirect
-from django.views.generic import ListView, DetailView, UpdateView, DeleteView
+from django.http import HttpResponseRedirect, HttpResponse
+from django.urls import reverse_lazy, reverse
+from django.views.generic import ListView, DetailView, UpdateView, DeleteView, View
 from django.views.generic.edit import CreateView
 from django.core.paginator import Paginator
 from .models import Post, Author, Category, PostCategory
@@ -7,9 +8,8 @@ from .filters import PostFilter
 from .forms import PostForm
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.core.mail import send_mail, mail_managers
-from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Group
 from django.template.loader import render_to_string
@@ -17,7 +17,8 @@ from django.core.mail import EmailMultiAlternatives
 # Ниже импорт для сигналов
 from django.db.models.signals import post_save, m2m_changed
 from django.dispatch import receiver, Signal
-from .tasks import add_post_send_email
+# from .tasks import add_post_send_email
+# import django.dispatch
 
 
 
@@ -62,7 +63,7 @@ class Search(ListView):
     return context
 
 
-addpost = Signal(providing_args=['instance', 'category'])
+addpost = Signal()
 
 class CreatePost(PermissionRequiredMixin, CreateView):
     permission_required = ('main_app.add_post',)
@@ -75,8 +76,8 @@ class CreatePost(PermissionRequiredMixin, CreateView):
         id = post.id
         a = form.cleaned_data['postCategory']
         category_object_name = str(a[0])
-        add_post_send_email.delay(category=category_object_name, id=id)
-        # addpost.send(Post, instance=post, category=category_object_name)
+        # add_post_send_email.delay(category=category_object_name, id=id)
+        addpost.send(Post, instance=post, category=category_object_name)
         return redirect(f'/news/{id}')
 
 
@@ -146,3 +147,10 @@ def del_subscribe(request, pk):
     )
     return redirect(request.META.get('HTTP_REFERER'))
 
+def logging_page(request):
+    return render(request, 'logging_page.html')
+
+
+def test_error(request):
+    raise Exception
+    return HttpResponseRedirect(reverse('logging_page'))
