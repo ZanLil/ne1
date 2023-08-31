@@ -106,20 +106,20 @@ general.log — только при DEBUG = False.
 ### Установка и запуск среды разработки backend Django
 
 Клонируем репозиторий:  
-git clone https://github.com/aerastov/SkillFactory_D13.git 
+```git clone https://github.com/aerastov/SkillFactory_D13.git```  
 
-В папке проекта создаем виртуальное окружение:
-py -m venv venv
-venv\scripts\activate
+В папке проекта создаем виртуальное окружение:  
+```py -m venv venv```  
+```venv\scripts\activate```  
 
 Устанавливаем библиотеки, необходимые для работы проекта:  
-pip install -r requirements.txt
+```pip install -r requirements.txt```  
 
 В консоли переходим в директорию проекта и запускаем его:  
-python manage.py runserver
+```python manage.py runserver```  
 
 Проект будет доступен по адресу:  
-http://127.0.0.1:8000
+http://127.0.0.1:8000  
 
 ### Запуск проекта через Docker
 Установка Docker, если необходимо:  
@@ -128,8 +128,8 @@ http://127.0.0.1:8000
 Для Windows или Macos ставим Docker Desktop:  
 ```https://www.docker.com/```  
 
-Запускаем проект в Docker:
-docker build -t news_portal . && docker run -d -p 8000:8000 news_portal  
+Запускаем проект в Docker:  
+```docker build -t news_portal . && docker run -d -p 8000:8000 news_portal```  
 
 
 
