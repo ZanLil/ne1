@@ -91,7 +91,7 @@ class EditPost(PermissionRequiredMixin, LoginRequiredMixin, UpdateView):
     return Post.objects.get(pk=id)
 
 
-class DeletePost(DeleteView):
+class DeletePost(LoginRequiredMixin, DeleteView):
   template_name = 'delete_post.html'
   queryset = Post.objects.all()
   success_url = '/news/'

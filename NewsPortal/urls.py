@@ -19,6 +19,7 @@ from django.shortcuts import redirect
 from django.views.static import serve
 from django.conf.urls.static import static
 from django.conf import settings
+from .robots import robots_txt
 
 urlpatterns = [
   path('admin/', admin.site.urls),
@@ -27,6 +28,7 @@ urlpatterns = [
   path('news/', include('main_app.urls')),
   path('sign/', include('sign.urls')),
   path('account/', include('allauth.urls')),
+  path('robots.txt', robots_txt),
 ]
 
 
